@@ -1,12 +1,21 @@
-import React from 'react';
-import ListItem from './ListItem.jsx'
+import React from 'react'
+import Repo from './Repo.jsx'
 
-const List = (props) => {
-  return (
-    <div>
-      {props.testState.map(entry => <ListItem entry={entry}/>)}
-    </div>
-  )
+class List extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      test: ''
+    }
+  }
+  render() {
+    return (
+      <div>
+        There are {this.props.repos.length} repos.
+        <p></p> {this.props.repos.map(repo => <Repo repo={repo} onEdit={this.props.onEdit} onDelete={this.props.onDelete}/>)}
+      </div>
+    )
+  }
 }
 
-export default List;
+export default List

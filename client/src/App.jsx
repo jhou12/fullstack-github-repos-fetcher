@@ -1,32 +1,68 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import styled from 'styled-components';
-import Styles, { Container, Column, Title, Emoji } from './Styles.js';
-import List from './List.jsx';
+import React from 'react'
+import axios from 'axios'
+import Search from './Search.jsx'
+import List from './List.jsx'
 
-const App = () => {
-  const [testState, setTestState] = useState([])
-
-  useEffect(() => {
-    axios('/read')
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      repos: []
+    }
+    this.onSubmit = this.onSubmit.bind(this)
+    this.onEdit = this.onEdit.bind(this)
+    this.onDelete = this.onDelete.bind(this)
+  }
+  onSubmit(user) {
+    console.log('user to be sent', user)
+    axios.post('/repos', {search: user})
     .then(res => {
-      console.log('data retrieved:', res.data)
-      setTestState(res.data)
+      console.log(res.data)
+      this.setState({
+        repos: res.data
+      })
     })
-    .catch(err => console.log('client GET req error:', err))
-  }, [])
+  }
+  onEdit(repoId, note) {
+    console.log('onEdit', repoId, note)
+    axios.put('/update', {repoId, note})
+    .then(res => {
+      console.log(res.data)
+      this.setState({
+        repos: res.data
+      })
+    })
+  }
+  onDelete(repoId) {
+    console.log('del active')
+    axios.delete('/del', {auth: {user: 'root'}, data: {repoId}})
+    .then(res => {
+      console.log(res.data)
+      this.setState({
+        repos: res.data
+      })
+    })
+  }
+  componentDidMount() {
+    axios('/repos')
+    .then(res => {
+      console.log('test')
+      this.setState({
+        repos: res.data
+      })
+    })
+  }
+  render() {
+    return (
+      <div>
+        <h1>GitHub Fetcher App</h1>
+        <Search onSubmit={this.onSubmit}/>
 
-  return (
-    <Container>
-
-      <Column>
-        <Title>React running!</Title>
-        <Emoji>⚛️</Emoji>
-        {testState.length === 0? 'No data to display.' : <List testState={testState}/>}
-      </Column>
-
-    </Container>
-  )
+        <p></p>Top 25 Repos:
+        <p></p><List repos={this.state.repos} onEdit={this.onEdit} onDelete={this.onDelete}/>
+      </div>
+    )
+  }
 }
 
 export default App;

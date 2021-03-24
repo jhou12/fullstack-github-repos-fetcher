@@ -14,39 +14,35 @@ class App extends React.Component {
     this.onDelete = this.onDelete.bind(this)
   }
   onSubmit(user) {
-    console.log('user to be sent', user)
-    axios.post('/repos', {search: user})
+    axios.post('/add', {search: user})
     .then(res => {
-      console.log(res.data)
       this.setState({
         repos: res.data
       })
     })
   }
   onEdit(repoId, note) {
-    console.log('onEdit', repoId, note)
     axios.put('/update', {repoId, note})
     .then(res => {
-      console.log(res.data)
       this.setState({
         repos: res.data
       })
     })
   }
   onDelete(repoId) {
-    console.log('del active')
-    axios.delete('/del', {auth: {user: 'root'}, data: {repoId}})
+    axios.delete('/del', {
+      auth: {user: 'root'},
+      data: {repoId},
+    })
     .then(res => {
-      console.log(res.data)
       this.setState({
         repos: res.data
       })
     })
   }
   componentDidMount() {
-    axios('/repos')
+    axios('/get')
     .then(res => {
-      console.log('test')
       this.setState({
         repos: res.data
       })

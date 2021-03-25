@@ -1,11 +1,12 @@
 import React from 'react'
 import Repo from './Repo.jsx'
+import Styled, { ReposColumn } from './Styles.js'
 
 const List = (props) => {
   return (
-    <div>
-    <p></p> {props.repos.map(repo => <Repo repo={repo} onEdit={props.onEdit} onDelete={props.onDelete}/>)}
-  </div>
+    <ReposColumn>
+    {props.repos.map(repo => <Repo repo={repo} onEdit={props.onEdit} onDelete={props.onDelete}/>)}
+  </ReposColumn>
   )
 }
 

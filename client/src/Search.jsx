@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Styled, { SearchButton, SearchInput, SearchFormStyled } from './Styles.js'
 
 const Search = (props) => {
   const [user, setUser] = useState('')
@@ -6,10 +7,10 @@ const Search = (props) => {
     setUser(e.target.value)
   }
   return (
-    <div>
-    <input type="text" name="search" onChange={(e)=>onType(e)}></input>
-    <button onClick={()=>props.onSubmit(user)}>Submit</button>
-  </div>
+    <SearchFormStyled>
+    <SearchInput type="text" name="search" placeholder="Search username..." onChange={(e)=>onType(e)}></SearchInput>
+    <SearchButton onClick={(e)=>props.onSubmit(user,e)}>Submit</SearchButton>
+  </SearchFormStyled>
   )
 }
 

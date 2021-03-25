@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
-const db = require('../database/mongo.js') // USE FOR MONGO
-// const db = require('../database/sequelize.js') // USE FOR SEQUELIZE
+// const db = require('../database/mongo.js') // USE FOR MONGO
+const db = require('../database/sequelize.js') // USE FOR SEQUELIZE
 const api = require('./github.js')
 const port = 3000
 
@@ -14,7 +14,7 @@ app.get('/get', async (req, res) => {
       let results = await db.top25();
       res.status(200).send(results);
   } catch (e) {
-      console.lot('server get error', e)
+      console.log('server get error', e)
       res.status(404).send('server get error')
 }
 });
@@ -32,6 +32,7 @@ app.post('/add', async (req, res) => {
 
 app.put('/update', async (req, res) => {
   try {
+    console.log('edit test', req.body)
     let results = await db.update(req.body)
     res.status(200).send(results)
   } catch(e) {

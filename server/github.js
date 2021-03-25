@@ -14,10 +14,11 @@ let getReposByUsername = (user) => {
       repo.repoId = res.data[i].id
       repo.repoName = res.data[i].name
       repo.owner = res.data[i].owner.login
+      repo.ownerUrl = res.data[i].owner.html_url
       repo.htmlUrl = res.data[i].html_url
       repo.description = res.data[i].description
       repo.updated = res.data[i].updated_at
-      repo.note = '[empty]'
+      repo.note = '(empty)'
       formatted.push(repo)
     }
     return formatted

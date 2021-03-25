@@ -23,6 +23,7 @@ const Repo = sequelize.define('Repo', {
   repoId: Sequelize.TEXT,
   repoName: Sequelize.TEXT,
   owner: Sequelize.TEXT,
+  ownerUrl: Sequelize.TEXT,
   htmlUrl: Sequelize.TEXT,
   description: Sequelize.TEXT,
   updated: Sequelize.TEXT,
@@ -54,8 +55,7 @@ let create = async (apiArray) => {
         where: { repoId: repo.repoId }
       })
     })
-    let results = await top25()
-    return results
+    return apiArray
   } catch(e) {
     console.log('db create error:',e)
   }
@@ -63,11 +63,13 @@ let create = async (apiArray) => {
 
 let update = async (edit) => {
   try {
+    console.log('BEFORE', edit)
     await Repo.update(
       {note: edit.note},
       {where: {repoId: edit.repoId}}
       )
     let results = await top25()
+    console.log('AFTER', results)
     return results
   } catch(e) {
     console.log('db update error:',e)

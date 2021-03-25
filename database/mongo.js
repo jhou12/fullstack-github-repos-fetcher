@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const dotenv = require('dotenv').config()
-mongoose.connect(`mongodb://localhost/${process.env.MONGO_DB}`, {useNewUrlParser: true, useFindAndModify: false})
+mongoose.connect(`mongodb://localhost/${process.env.MONGO_DB}`, {useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true })
 
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
@@ -12,6 +12,7 @@ const repoSchema = new mongoose.Schema({
   repoId: String, // id
   repoName: String, // name
   owner: String, // owner.login
+  ownerUrl: String, // owner.html_url
   htmlUrl: String, // html_url
   description: String, // description
   updated: String, // updated_at
@@ -31,10 +32,9 @@ let top25 = async () => {
 
 let create = async (apiArray) => {
   try {
-      let arrayOfPromises = apiArray.map(repo => Repo.findOneAndUpdate({repoId: repo.repoId}, repo, {upsert: true}))
+      let arrayOfPromises = await apiArray.map(repo => Repo.findOneAndUpdate({repoId: repo.repoId}, repo, {upsert: true}))
       await Promise.all(arrayOfPromises)
-      let results = await top25()
-      return results
+      return apiArray
   } catch(e) {
     console.log('db create error:',e)
   }

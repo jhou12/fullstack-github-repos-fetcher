@@ -44,11 +44,11 @@ const App = (props) => {
     <Container>
       <Column>
 
-    <Title>GitHub Repos Fetcher <DogEmoji>🐶</DogEmoji></Title>
-    <Search onSubmit={onSubmit}/>
+      <Title>GitHub Repos Fetcher <DogEmoji>🐶</DogEmoji></Title>
+      <Search onSubmit={onSubmit}/>
 
-    <HeadingStyled>{heading}</HeadingStyled>
-    {repos.length > 0 ? <List repos={repos} onEdit={onEdit} onDelete={onDelete}/> : <div><p></p>No repos saved.</div>}
+      <HeadingStyled>{heading}</HeadingStyled>
+      {repos.length > 0 ? <List repos={repos} onEdit={onEdit} onDelete={onDelete}/> : <div><p></p>No repos saved.</div>}
 
     </Column>
   </Container>

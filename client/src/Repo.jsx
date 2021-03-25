@@ -14,16 +14,15 @@ const Repo = (props) => {
   return (
     <RepoStyled>
       <DeleteButton onClick={()=>props.onDelete(props.repo.repoId)}>X</DeleteButton>
-    <BoneEmoji>🦴 </BoneEmoji> Repo: <a href={props.repo.htmlUrl} target="_blank">{props.repo.repoName}</a> by <a href={props.repo.ownerUrl} target="_blank">{props.repo.owner}</a>
-    {props.repo.description ? <span><br/>Description: {props.repo.description}</span> : <span></span>}
-    <br/>Last updated: {lastUpdated(props.repo.updated)}
-    <br/><NoteStyled>Custom note: {props.repo.note}</NoteStyled>
+      <BoneEmoji>🦴 </BoneEmoji> Repo: <a href={props.repo.htmlUrl} target="_blank">{props.repo.repoName}</a> by <a href={props.repo.ownerUrl} target="_blank">{props.repo.owner}</a>
+      {props.repo.description ? <span><br/>Description: {props.repo.description}</span> : <span></span>}
+      <br/>Last updated: {lastUpdated(props.repo.updated)}
+      <br/><NoteStyled>Custom note: {props.repo.note}</NoteStyled>
 
-    <EditFormStyled>
-    <EditInput type="text" name="note" value={note} onChange={(e)=>onType(e)}></EditInput>
-    <EditButton onClick={(e)=>handleEdit(e)}>Edit Note</EditButton>
-    </EditFormStyled>
-
+      <EditFormStyled>
+      <EditInput type="text" name="note" value={note} onChange={(e)=>onType(e)}></EditInput>
+      <EditButton onClick={(e)=>handleEdit(e)}>Edit Note</EditButton>
+      </EditFormStyled>
   </RepoStyled>
   )
 }

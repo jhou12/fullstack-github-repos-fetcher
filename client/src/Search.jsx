@@ -8,8 +8,8 @@ const Search = (props) => {
   }
   return (
     <SearchFormStyled>
-    <SearchInput type="text" name="search" placeholder="Search username..." onChange={(e)=>onType(e)}></SearchInput>
-    <SearchButton onClick={(e)=>props.onSubmit(user,e)}>Submit</SearchButton>
+      <SearchInput type="text" name="search" placeholder="Search username..." onChange={(e)=>onType(e)}></SearchInput>
+      <SearchButton onClick={(e)=>props.onSubmit(user,e)}>Submit</SearchButton>
   </SearchFormStyled>
   )
 }

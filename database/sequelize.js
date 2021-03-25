@@ -63,13 +63,11 @@ let create = async (apiArray) => {
 
 let update = async (edit) => {
   try {
-    console.log('BEFORE', edit)
     await Repo.update(
       {note: edit.note},
       {where: {repoId: edit.repoId}}
       )
     let results = await top25()
-    console.log('AFTER', results)
     return results
   } catch(e) {
     console.log('db update error:',e)

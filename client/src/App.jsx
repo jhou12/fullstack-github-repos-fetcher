@@ -1,64 +1,39 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Search from './Search.jsx'
 import List from './List.jsx'
 
-class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      repos: []
-    }
-    this.onSubmit = this.onSubmit.bind(this)
-    this.onEdit = this.onEdit.bind(this)
-    this.onDelete = this.onDelete.bind(this)
-  }
-  onSubmit(user) {
+const App = (props) => {
+  const [repos, setRepos] = useState([])
+
+  const onSubmit = (user) => {
     axios.post('/add', {search: user})
-    .then(res => {
-      this.setState({
-        repos: res.data
-      })
-    })
+    .then(res => setRepos(res.data))
   }
-  onEdit(repoId, note) {
+  const onEdit = (repoId, note) => {
     axios.put('/update', {repoId, note})
-    .then(res => {
-      this.setState({
-        repos: res.data
-      })
-    })
+    .then(res => setRepos(res.data))
   }
-  onDelete(repoId) {
+  const onDelete = (repoId) => {
     axios.delete('/del', {
       auth: {user: 'root'},
       data: {repoId},
     })
-    .then(res => {
-      this.setState({
-        repos: res.data
-      })
-    })
+    .then(res => setRepos(res.data))
   }
-  componentDidMount() {
+  useEffect(()=> {
     axios('/get')
-    .then(res => {
-      this.setState({
-        repos: res.data
-      })
-    })
-  }
-  render() {
-    return (
-      <div>
-        <h1>GitHub Fetcher App</h1>
-        <Search onSubmit={this.onSubmit}/>
+    .then(res => setRepos(res.data))
+  }, [])
+  return (
+    <div>
+    <h1>GitHub Fetcher App</h1>
+    <Search onSubmit={onSubmit}/>
 
-        <p></p>Top 25 Repos:
-        <p></p><List repos={this.state.repos} onEdit={this.onEdit} onDelete={this.onDelete}/>
-      </div>
-    )
-  }
+    <p></p>Top 25 Repos:
+    <p></p><List repos={repos} onEdit={onEdit} onDelete={onDelete}/>
+  </div>
+  )
 }
 
 export default App;

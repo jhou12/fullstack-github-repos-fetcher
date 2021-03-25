@@ -1,26 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-class Search extends React.Component {
-  constructor(props) {
-    super(props)
-      this.state = {
-        user: ''
-      }
-      this.onType = this.onType.bind(this)
+const Search = (props) => {
+  const [user, setUser] = useState('')
+  const onType = (e) => {
+    setUser(e.target.value)
   }
-  onType(e) {
-    this.setState({
-      user: e.target.value
-    })
-  }
-  render() {
-    return (
-      <div>
-        <input type="text" name="search" onChange={(e)=>this.onType(e)}></input>
-        <button onClick={()=>this.props.onSubmit(this.state.user)}>Submit</button>
-      </div>
-    )
-  }
+  return (
+    <div>
+    <input type="text" name="search" onChange={(e)=>onType(e)}></input>
+    <button onClick={()=>props.onSubmit(user)}>Submit</button>
+  </div>
+  )
 }
 
 export default Search

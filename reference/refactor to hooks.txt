@@ -1,0 +1,8 @@
+// REFACTOR TO HOOKS
+
+1. import useState and useEffect
+2. change class to functional component, pass props
+3. change state to hooks
+4. change function declarations to function expressions
+5. change componentDidMount to useEffect, with [] as second param
+6. delete render() wrapper, remove 'this' from return statement

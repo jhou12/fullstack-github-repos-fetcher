@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 // const db = require('../database/mongo.js') // USE FOR MONGO
-// const db = require('../database/sequelize.js') // USE FOR SEQUELIZE
+const db = require('../database/sequelize.js') // USE FOR SEQUELIZE
 const api = require('./github.js')
 const port = 3000
 
